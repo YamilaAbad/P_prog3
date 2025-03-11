@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        ArbolBinario arbol = new ArbolBinario();
+       /* ArbolBinario arbol = new ArbolBinario();
 
         arbol.Insert(15);
         arbol.Insert(6);
@@ -30,6 +30,43 @@ public class Main {
         System.out.println();
         System.out.println("suma total de los elementos del arbol: "+arbol.sumaDeValoresDelArbol());
         System.out.println();
-        System.out.println("Hojas que superan el numero "+k+": "+ arbol.hojasQueSuperanElNumero(k));
+        System.out.println("Hojas que superan el numero "+k+": "+ arbol.hojasQueSuperanElNumero(k));*/
+
+        Nodo hoja1 = new Nodo(5);  // Nodo con valor 5
+        Nodo hoja2 = new Nodo(3);  // Nodo con valor 3
+        Nodo hoja3 = new Nodo(8);  // Nodo con valor 8
+        Nodo hoja4 = new Nodo(2);  // Nodo con valor 2
+
+        // Creamos nodos internos vacíos
+        Nodo nodoInterno1 = new Nodo();  // Nodo sin valor
+        Nodo nodoInterno2 = new Nodo();  // Nodo sin valor
+        Nodo nodoInterno3 = new Nodo();  // Nodo sin valor
+
+        // Establecemos las relaciones entre los nodos (formando el árbol)
+        nodoInterno1.setHijoIzq(hoja1);
+        nodoInterno1.setHijoDer(hoja2);
+
+        nodoInterno2.setHijoIzq(hoja3);
+        nodoInterno2.setHijoDer(hoja4);
+
+        nodoInterno3.setHijoIzq(nodoInterno1);
+        nodoInterno3.setHijoDer(nodoInterno2);
+
+        Nodo raiz = new Nodo();  // Raíz vacía
+        raiz.setHijoIzq(nodoInterno3);
+
+        // Creamos el árbol
+        ArbolBinario arbol = new ArbolBinario(raiz);
+
+        // Imprimimos el árbol antes de llenar los nodos internos
+        System.out.println("Árbol antes de llenar los nodos internos:");
+        arbol.imprimirArbol(arbol.getRoot(), "");
+
+        // Llamamos al método para llenar los nodos internos
+        arbol.llenarArbolInterno();
+
+        // Imprimimos el árbol después de llenar los nodos internos
+        System.out.println("\nÁrbol después de llenar los nodos internos:");
+        arbol.imprimirArbol(arbol.getRoot(), "");
     }
 }

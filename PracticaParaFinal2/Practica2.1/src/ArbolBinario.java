@@ -3,13 +3,15 @@ import java.util.*;
 public class ArbolBinario {
     private Nodo raiz;
 
+    public ArbolBinario(Nodo raiz) {
+        this.raiz=raiz;
+    }
+
     public void ArbolBinario(){
         this.raiz=null;
     }
 
-    public void ArbolBinario(Nodo nodo){
-        this.raiz=nodo;
-    }
+
 
     /**
      * Integer getRoot(), boolean hasElem(Integer), boolean isEmpty(), void insert(Integer),
@@ -204,6 +206,15 @@ public class ArbolBinario {
         }
         return nodos;
     }
+//IMPRIMIR ARBOL
+    public void imprimirArbol(Nodo nodo, String indent) {
+        if (nodo == null) return;
+        Integer valor = nodo.getValorNodo();
+        System.out.println(indent + (valor != null ? valor : "null"));
+        imprimirArbol(nodo.getHijoIzq(), indent + "   ");
+        imprimirArbol(nodo.getHijoDer(), indent + "   ");
+    }
+    /****************************************************************************************************************************************************************************/
  /*Ejercicio 2
 Dado un árbol binario de búsquedas que almacena números enteros, implementar un algoritmo
 que retorne la suma de todos los nodos internos del árbol.*/
@@ -223,7 +234,7 @@ que retorne la suma de todos los nodos internos del árbol.*/
         }
         return sumaActual;
     }
-/*
+/*EJERCICIO 3
 Dado un árbol binario de búsqueda que almacena
 números enteros y un valor de entrada K, implementar un
 algoritmo que permita obtener un listado con los valores
@@ -253,4 +264,41 @@ debería ser [9, 11].
     private boolean esHoja(Nodo nodo){
         return nodo.getHijoDer()==null && nodo.getHijoIzq()==null;
     }
+
+/*EJERCICIO 4
+Se posee un árbol binario (no de búsqueda), donde los nodos internos están vacíos, mientras
+que las hojas tienen valores enteros. Se debe implementar un método que recorra el árbol y
+coloque valores en los nodos vacíos (los nodos internos). El valor de cada nodo interno debe
+ser igual al valor de su hijo derecho, menos el valor de su hijo izquierdo. En caso de que el
+nodo tenga un solo hijo, el valor del hijo faltante se reemplaza por un 0. Por ejemplo, tomando
+como entrada el árbol de la izquierda, el árbol resultante debería quedar con los mismos
+valores que el de la derecha.
+ */
+    public void llenarArbolInterno() {
+        if (raiz != null) {
+            rellenar(raiz);
+        }
+    }
+
+    private void rellenar(Nodo nodoActual) {
+        if (nodoActual == null) return;
+        Nodo hijoIzq = nodoActual.getHijoIzq();
+        Nodo hijoDer = nodoActual.getHijoDer();
+
+        if (hijoIzq != null && hijoDer != null) {
+            nodoActual.setValorNodo(hijoDer.getValorNodo() - hijoIzq.getValorNodo());
+        } else if (hijoIzq != null) {
+            nodoActual.setValorNodo(0 - hijoIzq.getValorNodo());
+        } else if (hijoDer != null) {
+            nodoActual.setValorNodo(hijoDer.getValorNodo() - 0);
+        }
+
+        if (hijoIzq != null) {
+            rellenar(hijoIzq);
+        }
+        if (hijoDer != null) {
+            rellenar(hijoDer);
+        }
+    }
+
 }
