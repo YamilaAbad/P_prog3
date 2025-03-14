@@ -65,15 +65,18 @@ public class ArbolDeLibros {
         }
         return cant(raiz,ident);
     }
-    private int cant(Libro l, int ident){
-        if (l.getIdentificador()==ident){
+    private int cant(Libro l, int ident) {
+        if (l.getIdentificador() == ident) {
             return l.getCantEjemplares();
         }
-        if (l.hijIzq!=null){
-            cant(l.hijIzq,ident);
+        if (l.hijIzq != null) {
+            int resultadoIzq = cant(l.hijIzq, ident);
+            if (resultadoIzq != -1) {
+                return resultadoIzq;
+            }
         }
-        if (l.hijDer!=null){
-            cant(l.hijDer,ident);
+        if (l.hijDer != null) {
+            return cant(l.hijDer, ident);
         }
         return -1;
     }
@@ -101,6 +104,23 @@ public class ArbolDeLibros {
 
     // ● Obtener todos los libros publicados entre dos años de publicación dados.
     public List<Libro> librosPublicadosEntreLosAños(int anio1, int anio2){
-        
+        if (isEmpty()){
+            return null;
+        }
+        List<Libro>libros = new ArrayList<>();
+        buscarLibrosPorAñoPublicacion(raiz,libros,anio1,anio2);
+        return libros;
+    }
+    private List<Libro> buscarLibrosPorAñoPublicacion(Libro l, List<Libro>libros, int a1, int a2){
+        if (l.getAnioPublicacion()>a1 && l.getAnioPublicacion()<a2){
+            libros.add(l);
+        }
+        if (l.getHijIzq()!=null){
+            buscarLibrosPorAñoPublicacion(l.getHijIzq(),libros,a1,a2);
+        }
+        if (l.getHijDer()!=null){
+            buscarLibrosPorAñoPublicacion(l.getHijDer(),libros,a1,a2);
+        }
+        return libros;
     }
 }

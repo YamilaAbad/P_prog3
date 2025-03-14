@@ -1,6 +1,14 @@
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
+        /**************************************************************************************************************
+         * ************************************************************************************************************
+         * MAIN  PARA ARBOL DE INTEGERS
+         * ************************************************************************************************************
+         * ************************************************************************************************************
+         */
        /* ArbolBinario arbol = new ArbolBinario();
 
         arbol.Insert(15);
@@ -32,7 +40,13 @@ public class Main {
         System.out.println();
         System.out.println("Hojas que superan el numero "+k+": "+ arbol.hojasQueSuperanElNumero(k));*/
 
-        Nodo hoja1 = new Nodo(5);  // Nodo con valor 5
+        /**************************************************************************************************************
+         * ************************************************************************************************************
+         * MAIN  PARA ARBOL DE CHARS
+         * ************************************************************************************************************
+         * ************************************************************************************************************
+         */
+       /* Nodo hoja1 = new Nodo(5);  // Nodo con valor 5
         Nodo hoja2 = new Nodo(3);  // Nodo con valor 3
         Nodo hoja3 = new Nodo(8);  // Nodo con valor 8
         Nodo hoja4 = new Nodo(2);  // Nodo con valor 2
@@ -67,6 +81,50 @@ public class Main {
 
         // Imprimimos el árbol después de llenar los nodos internos
         System.out.println("\nÁrbol después de llenar los nodos internos:");
-        arbol.imprimirArbol(arbol.getRoot(), "");
+        arbol.imprimirArbol(arbol.getRoot(), ""); */
+
+        /**************************************************************************************************************
+         * ************************************************************************************************************
+         * MAIN  PARA ARBOL DE LIBROS
+         * ************************************************************************************************************
+         * ************************************************************************************************************
+         */
+
+        // Crear algunos libros
+        Libro libro1 = new Libro("Cien años de soledad", "Gabriel García Márquez", "Ficción", 1967, 3, 1);
+        Libro libro2 = new Libro("El Quijote", "Miguel de Cervantes", "Ficción", 1605, 5, 2);
+        Libro libro3 = new Libro("1984", "George Orwell", "Ficción", 1949, 4, 3);
+        Libro libro4 = new Libro("El Principito", "Antoine de Saint-Exupéry", "Fantasía", 1943, 2, 4);
+        Libro libro5 = new Libro("Sapiens", "Yuval Noah Harari", "No Ficción", 2011, 6, 5);
+
+        // Crear el árbol de libros
+        ArbolDeLibros arbol = new ArbolDeLibros(libro1);
+        arbol.Insert(libro2);
+        arbol.Insert(libro3);
+        arbol.Insert(libro4);
+        arbol.Insert(libro5);
+
+        // Obtener la cantidad de ejemplares de un libro por identificador
+        int identificadorBuscado = 2;
+        System.out.println("Cantidad de ejemplares del libro con ID " + identificadorBuscado + ": " + arbol.cantEjemplares(identificadorBuscado));
+
+        // Obtener todos los libros de un género dado
+        String generoBuscado = "Ficción";
+        List<Libro> librosGenero = arbol.librosDeUnGenero(generoBuscado);
+        System.out.println("Libros de género " + generoBuscado + ":");
+        for (Libro libro : librosGenero) {
+            System.out.println("- " + libro.getTitulo() + " de " + libro.getAutor());
+        }
+
+        // Obtener libros publicados entre dos años
+        int anioInicio = 1940;
+        int anioFin = 2000;
+        List<Libro> librosEntreAnios = arbol.librosPublicadosEntreLosAños(anioInicio, anioFin);
+        System.out.println("Libros publicados entre " + anioInicio + " y " + anioFin + ":");
+        for (Libro libro : librosEntreAnios) {
+            System.out.println("- " + libro.getTitulo() + " (Año: " + libro.getAnioPublicacion() + ")");
+        }
     }
+
+
 }
